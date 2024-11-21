@@ -103,6 +103,11 @@ app.delete('/eventos/:id', async (req, res) => {
 });
 
 // Iniciar servidor
-app.listen(port, () => {
+/*app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
+});
+*/
+
+server.listen(app.get('port'), () =>  {
+    console.log('Server on port', app.get('port'));
 });
