@@ -6,7 +6,6 @@ const mqtt = require('mqtt');
 const http = require('http');
 
 const app = express();
-const port = process.env.PORT || 8080;
 const server = http.createServer(app);
 
 const uri = "mongodb+srv://lalovive03:OQWZrrv87JugkVEG@cluster0.gv1iw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
