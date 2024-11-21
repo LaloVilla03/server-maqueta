@@ -11,7 +11,7 @@ const server = http.createServer(app);
 
 const uri = "mongodb+srv://lalovive03:OQWZrrv87JugkVEG@cluster0.gv1iw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 
 // Middleware para parsing de JSON
 app.use(express.json());
