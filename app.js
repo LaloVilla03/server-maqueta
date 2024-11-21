@@ -3,11 +3,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const mqtt = require('mqtt');
+const http = require('http');
 
 const app = express();
 const port = process.env.PORT || 8080;
+const server = http.createServer(app);
 
 const uri = "mongodb+srv://lalovive03:OQWZrrv87JugkVEG@cluster0.gv1iw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+app.set('port', process.env.PORT || 3000);
 
 // Middleware para parsing de JSON
 app.use(express.json());
@@ -26,7 +30,7 @@ const parkingSchema = new mongoose.Schema({
 const Evento = mongoose.model('eventos', parkingSchema);
 
 // Configuración del cliente MQTT
-const mqttClient = mqtt.connect('mqtt://test.mosquitto.org'); 
+const mqttClient = mqtt.connect('mqtt://test.mosquitto.org');
 
 mqttClient.on('connect', () => {
   console.log('Conectado a MQTT');
@@ -60,7 +64,7 @@ mqttClient.on('message', async (topic, message) => {
 app.post('/eventos', async (req, res) => {
   const entrada_numero_cajon = req.body.entrada;
   const salida_numero_cajon = req.body.salida;
-  
+
   try {
     const newEvento = new Evento({ entrada_numero_cajon, salida_numero_cajon });
     await newEvento.save();
@@ -103,11 +107,10 @@ app.delete('/eventos/:id', async (req, res) => {
 });
 
 // Iniciar servidor
-/*app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
-});
-*/
+// app.listen(port, () => {
+//   console.log(`Servidor corriendo en http://localhost:${port}`);
+// });
 
-server.listen(app.get('port'), () =>  {
-    console.log('Server on port', app.get('port'));
+server.listen(app.get('port'), () => {
+  console.log('Server on port', app.get('port'));
 });
